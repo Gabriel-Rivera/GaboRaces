@@ -1,0 +1,26 @@
+body{
+    margin:0 auto;
+    background-image: url("http://www.formulacero.com/wp-content/uploads/2012/09/fondo2.jpg");
+}
+
+#canvas{
+    display: flex;
+    margin-left: 20px;
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+.button img{
+    width: 100px;
+    height: 100px;
+}
+
+.imgLeft{
+    width: 300px;
+    height: 150px;
+}
