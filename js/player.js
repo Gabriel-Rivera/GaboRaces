@@ -33,8 +33,21 @@ Player.prototype.renderPosition = function(){
     this.posY += Math.sin(this.angle * Math.PI / 180) * this.speed;
 }
 
-Player.prototype.limitLeft=function(){
-    if(this.posX<50){
-        
-    }
+Player.prototype.crashWith=function(item){
+        if(this.posX<item.posX+item.width&&
+            this.posX + this.width > item.posX){
+            console.log("chocaste");
+            clearInterval(a);
+        }
+
 }
+
+/*function CheckCollition(){
+  this.crashWith = function(item){
+    return  (this.x < item.x + item.width) &&
+            (this.x + this.width > item.x) &&
+            (this.y < item.y + item.height) &&
+            (this.y + this.height > item.y);
+  }
+}
+*/
