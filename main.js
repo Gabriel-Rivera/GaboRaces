@@ -5,12 +5,12 @@ var myMusic;
 var intro,acelerar,frenar,derrape;
 var fps = 30;
 var b,a;
-var col;
+var cont=0;
 $(document).ready(function(){  
       intro = new sound("sonidos/Intro.mp3");
-      intro.play();
+      //intro.play();
       b = setInterval(()=>{
-        intro.play()
+        //intro.play()
       }, 1000); 
       
   $(".title").on("click", function(){
@@ -21,13 +21,22 @@ $(document).ready(function(){
         myGame = new Game (canvas);   
         acelerar = new sound("sonidos/AcelerarCompleto.mp3");
         acelerar.play();        
-        drawColumns(); 
+        drawColumns();
          a = setInterval (function (){
+                myGame.board.clearBoard();
                 myGame.board.drawBoard();
-                myGame.player.drawPlayer();
-                myGame.player.renderPosition();
-                //myGame.player.crashWith();
-                               
+                for (let i = 0; i < myGame.columns.length; i++) {
+                  if(myGame.columns[i].crashWith(myGame.player1)){
+                    myGame.player1.speed=0;
+                  
+                  }
+                  if(myGame.columns[i].crashWith(myGame.player2)){
+                    myGame.player2.speed=0;
+                    
+                  }
+                }
+                
+                
         },1000/fps) 
   })    
 })
@@ -51,18 +60,18 @@ function sound(src) {
 addEventListener("keydown", function(e){
         
         if(e.keyCode===37){
-         myGame.player.angle -=10;
+         myGame.player1.angle -=10;
          derrape = new sound("sonidos/derrapeVuelta.mp3");
          derrape.play();       
         }
         if(e.keyCode === 39){
-          myGame.player.angle +=10;
+          myGame.player1.angle +=10;
           derrape = new sound("sonidos/derrapeVuelta.mp3");
          derrape.play();       
         }
         
         if(e.keyCode === 38){
-          myGame.player.moveFoward(); 
+          myGame.player1.moveFoward(); 
            frenar.stop();  
            acelerar.stop();       
            acelerar = new sound("sonidos/AcelerarCompleto.mp3");
@@ -70,10 +79,38 @@ addEventListener("keydown", function(e){
         }
 
         if(e.keyCode === 40){
-          myGame.player.moveBack();      
+          myGame.player1.moveBack();      
            acelerar.stop();       
            frenar = new sound("sonidos/frenar.mp3");
            frenar.play();  
         }
+
+        /*******************************************/
         
+        if(e.keyCode===65){
+          myGame.player2.angle -=10;
+          derrape = new sound("sonidos/derrapeVuelta.mp3");
+          derrape.play();       
+         }
+         if(e.keyCode === 68){
+           myGame.player2.angle +=10;
+           derrape = new sound("sonidos/derrapeVuelta.mp3");
+          derrape.play();       
+         }
+         
+         if(e.keyCode === 87){
+           myGame.player2.moveFoward(); 
+            //frenar.stop();  
+            //acelerar.stop();       
+            //acelerar = new sound("sonidos/AcelerarCompleto.mp3");
+            //acelerar.play();                
+         }
+ 
+         if(e.keyCode === 83){
+           myGame.player2.moveBack();      
+            //acelerar.stop();       
+            //frenar = new sound("sonidos/frenar.mp3");
+            //frenar.play();  
+         }
+
 });
